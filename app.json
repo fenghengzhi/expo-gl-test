@@ -9,7 +9,8 @@
       "android"
     ],
     "packagerOpts": {
-      "port": 5388
+      "port": 5388,
+      "config": "metro.config.js"
     },
     "version": "1.0.0",
     "orientation": "portrait",
