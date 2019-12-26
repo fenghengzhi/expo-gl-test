@@ -4,7 +4,11 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build:android": "expo build:android",
+    "build:ios": "expo build:ios",
+    "publish": "expo publish",
+    "exp-minify-start": "expo start --no-dev --minify --clear --localhost"
   },
   "dependencies": {
     "expo": "~36.0.0",
