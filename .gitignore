@@ -18,3 +18,6 @@ web-report/
 yarn.lock
 yarn-error.log
 
+/node_modules/
+/.idea/
+/.expo/

@@ -1,11 +1,13 @@
-import React from 'react';
-import {PixelRatio, StyleSheet, View, Platform} from 'react-native';
+import React, {useRef} from 'react';
+import {PixelRatio, StyleSheet, View, Platform, Button} from 'react-native';
 import {GLView} from 'expo-gl';
 import ExpoTHREE, {loadTextureAsync, THREE} from 'expo-three';
 import {ExpoWebGLRenderingContext} from "expo-gl/src/GLView.types";
 // global.THREE = global.THREE || THREE;
 
 export default function App() {
+    const speed = useRef(0.01);
+
     async function contextCreateHandler(gl: ExpoWebGLRenderingContext) {
 
         // initThree
@@ -49,6 +51,7 @@ export default function App() {
         const earthMesh = new THREE.Mesh(geometry, material)
         ExpoTHREE.utils.computeMeshNormals(earthMesh);
         scene.add(earthMesh)
+
         function animate() {
             // console.warn('animate')
             if (Platform.OS === 'ios') {
@@ -61,8 +64,8 @@ export default function App() {
                 earthMesh.rotation.x += 1;
                 earthMesh.rotation.y += 1;
             } else {
-                earthMesh.rotation.x += 0.01;
-                earthMesh.rotation.y += 0.01;
+                earthMesh.rotation.x += speed.current;
+                earthMesh.rotation.y += speed.current;
             }
 
 
@@ -77,6 +80,14 @@ export default function App() {
         <View style={styles.container}>
             <GLView onContextCreate={contextCreateHandler}
                     style={{borderWidth: 1, flex: 1, width: '100%', backgroundColor: '#000'}}/>
+            <View style={{flexDirection: 'row', position: 'absolute', bottom: 0, left: 0, right: 0,justifyContent:'space-around'}}>
+                <Button onPress={() => {
+                    speed.current = 0.01;
+                }} title="转"/>
+                <Button onPress={() => {
+                    speed.current = 0;
+                }} title="停"/>
+            </View>
         </View>
     );
 }
